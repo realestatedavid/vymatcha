@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>vy's cafe — order</title>
+  <meta name="description" content="Order matcha drinks and more from Vy's Cafe — customize sugar, toppings, and milk.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============================================================
+     NAVBAR
+     ============================================================ -->
+<nav class="nav">
+  <div class="nav-brand">
+    <span class="nav-eyebrow">vy's cafe</span>
+    <span class="nav-title">the menu</span>
+  </div>
+  <button class="cart-btn" id="cart-btn" aria-label="View cart">
+    🛒 Cart
+    <span class="cart-count" id="cart-count">0</span>
+  </button>
+</nav>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<header class="hero">
+  <div class="hero-deco"></div>
+  <!-- leaf decoration top-left -->
+  <svg style="position:absolute;top:0;left:0;z-index:0;opacity:0.38;pointer-events:none" width="160" height="160" viewBox="0 0 160 160">
+    <path d="M5 155 C18 88, 70 38, 22 -8" fill="#c5dbbf" opacity="0.45"/>
+    <path d="M-4 98 C34 60, 72 55, 44 14" fill="#a8c89e" opacity="0.30"/>
+    <path d="M18 100 C28 84, 50 88, 40 106 C30 111, 14 108, 18 100Z" fill="#8ab880" opacity="0.44"/>
+    <path d="M34 65 C42 52, 60 56, 50 70 C42 74, 30 70, 34 65Z" fill="#6a9462" opacity="0.36"/>
+  </svg>
+  <!-- leaf decoration top-right -->
+  <svg style="position:absolute;top:0;right:0;z-index:0;opacity:0.36;transform:scaleX(-1);pointer-events:none" width="150" height="150" viewBox="0 0 150 150">
+    <path d="M5 150 C15 85, 65 35, 20 -5" fill="#c5dbbf" opacity="0.40"/>
+    <path d="M16 98 C26 82, 47 85, 37 103 C27 108, 13 105, 16 98Z" fill="#8ab880" opacity="0.42"/>
+    <path d="M32 63 C40 50, 57 54, 48 68 C40 72, 29 68, 32 63Z" fill="#6a9462" opacity="0.34"/>
+  </svg>
+
+  <div class="hero-eyebrow">vy's cafe</div>
+  <div class="hero-script">the</div>
+  <h1 class="hero-title"><em>matcha</em> menu</h1>
+  <div class="h-divider"></div>
+  <p class="hero-sub">open daily &nbsp;·&nbsp; 8am – 9pm</p>
+</header>
+
+<!-- ============================================================
+     CATEGORY TABS
+     ============================================================ -->
+<div class="tabs" role="tablist">
+  <button class="tab-btn active" data-cat="matcha" role="tab" aria-selected="true">Matcha Drinks</button>
+  <button class="tab-btn" data-cat="nonmatcha" role="tab" aria-selected="false">Beyond Matcha</button>
+</div>
+
+<!-- ============================================================
+     MATCHA PANEL
+     ============================================================ -->
+<section class="category-panel active" id="panel-matcha" role="tabpanel">
+  <div class="sec-row">
+    <span class="sec-label">Matcha Latte</span>
+    <div class="sec-line"></div>
+    <span class="sec-size">16 oz</span>
+  </div>
+  <div class="drink-grid" id="grid-matcha"></div>
+
+</section>
+
+<!-- ============================================================
+     NON-MATCHA PANEL
+     ============================================================ -->
+<section class="category-panel" id="panel-nonmatcha" role="tabpanel">
+  <!-- Jasmine Green Teas -->
+  <div class="sec-row">
+    <span class="sec-label">Jasmine Green Tea</span>
+    <div class="sec-line"></div>
+  </div>
+  <div class="drink-grid" id="grid-jasmine"></div>
+
+  <!-- Refreshers -->
+  <div class="sec-row" style="margin-top:32px">
+    <span class="sec-label">Refreshers</span>
+    <div class="sec-line"></div>
+  </div>
+  <div class="drink-grid" id="grid-refreshers"></div>
+
+  <!-- Coffee & More -->
+  <div class="sec-row" style="margin-top:32px">
+    <span class="sec-label">Coffee &amp; More</span>
+    <div class="sec-line"></div>
+  </div>
+  <div class="drink-grid" id="grid-coffee"></div>
+
+  <!-- Other Teas -->
+  <div class="sec-row" style="margin-top:32px">
+    <span class="sec-label">Specialty Teas</span>
+    <div class="sec-line"></div>
+  </div>
+  <div class="drink-grid" id="grid-other-tea"></div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer class="site-footer">hope you love it so matcha ✦</footer>
+
+<!-- ============================================================
+     DRINK MODAL
+     ============================================================ -->
+<div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-name">
+  <div class="modal">
+    <button class="modal-close" id="modal-close" aria-label="Close">✕</button>
+
+    <div class="modal-header">
+      <div class="modal-svg" id="modal-icon"></div>
+      <div class="modal-info">
+        <div class="modal-name" id="modal-name"></div>
+        <div class="modal-desc" id="modal-desc"></div>
+          </div>
+    </div>
+
+    <div class="modal-divider"></div>
+
+    <!-- Sugar Level -->
+    <div class="section-label">Sugar Level</div>
+    <div class="milk-grid" id="sugar-container"></div>
+
+    <div class="modal-divider"></div>
+
+    <!-- Toppings -->
+    <div class="section-label" style="margin-bottom:12px">Toppings <span style="font-size:10px;font-weight:400;color:var(--stone);letter-spacing:1px">(select any)</span></div>
+    <div class="toppings-grid" id="toppings-container"></div>
+
+    <div class="modal-divider"></div>
+
+    <!-- Milk Options -->
+    <div class="section-label">Milk Options</div>
+    <div class="milk-grid" id="milk-container"></div>
+
+    <div class="modal-divider"></div>
+
+    <!-- Ice Level -->
+    <div class="section-label">Ice Level</div>
+    <div class="milk-grid" id="ice-container"></div>
+
+    <!-- Footer -->
+    <div class="modal-footer">
+      <div class="qty-control">
+        <button class="qty-btn" id="qty-minus" aria-label="Decrease quantity">−</button>
+        <span class="qty-num" id="qty-num">1</span>
+        <button class="qty-btn" id="qty-plus" aria-label="Increase quantity">+</button>
+      </div>
+      <button class="add-btn" id="add-to-order">Add to Order</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     CART DRAWER
+     ============================================================ -->
+<div class="cart-overlay" id="cart-overlay"></div>
+<aside class="cart-drawer" id="cart-drawer" aria-label="Your order">
+  <div class="cart-header">
+    <span class="cart-title">Your Order</span>
+    <button class="cart-close" id="cart-close" aria-label="Close cart">✕</button>
+  </div>
+  <div class="cart-items" id="cart-items">
+    <div class="cart-empty"><div class="empty-icon">🍃</div><p>Your order is empty</p></div>
+  </div>
+  <div class="cart-footer">
+    <div class="cart-total" style="display:none">
+      <span class="cart-total-label">Total</span>
+      <span class="cart-total-val" id="cart-total-val"></span>
+    </div>
+    <button class="place-order-btn" id="place-order-btn" disabled>Place Order</button>
+  </div>
+</aside>
+
+<!-- ============================================================
+     ORDER CONFIRMATION
+     ============================================================ -->
+<div class="confirm-overlay" id="confirm-overlay" role="dialog" aria-modal="true">
+  <div class="confirm-box">
+    <div class="confirm-icon">🍵</div>
+    <div class="confirm-title">Order Placed!</div>
+    <div class="confirm-sub">Your matcha is brewing with love. See you soon~</div>
+    <button class="confirm-close-btn" id="confirm-close">Thank you ✦</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast" aria-live="polite"></div>
+
+  <!-- Rilakkuma Mascot -->
+  <div class="mascot-peek">
+    <img src="rilakkuma.png" alt="Rilakkuma peeking">
+  </div>
+
+  <script src="svgs.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
